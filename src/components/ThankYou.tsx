@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function ThankYou() {
   const handleShare = () => {
     const text = encodeURIComponent(
-      "SuperPower for your Business — Free Kannada Webinar on April 4, 11AM. Register here: " +
+      "SuperPower for your Business — Free Kannada AI Webinar on April 4, 11AM. Fill the quick survey: " +
         window.location.origin
     );
     window.open(`https://wa.me/?text=${text}`, "_blank");
@@ -24,29 +24,26 @@ export default function ThankYou() {
 
           {/* Heading */}
           <h1 className="font-outfit font-extrabold text-[28px] text-[#141413] mb-1">
-            ನೋಂದಣಿ ಆಯ್ತು! 🎉
+            ಧನ್ಯವಾದಗಳು! 🎉
           </h1>
-          <p className="font-outfit text-base text-[#141413]">You are registered!</p>
+          <p className="font-outfit text-base text-[#141413]">Thank you for sharing!</p>
 
           {/* Details box */}
           <div className="bg-[#FEF3EE] border-l-4 border-[#D97757] rounded-xl p-5 mt-6 text-left">
+            <p className="text-sm text-[#141413] font-medium mb-2">Webinar details:</p>
             <div className="flex items-center gap-2 text-sm mb-2">
               <span>📅</span>
               <span>Saturday, April 4, 2026</span>
             </div>
-            <div className="flex items-center gap-2 text-sm mb-2">
+            <div className="flex items-center gap-2 text-sm">
               <span>🕕</span>
               <span>11:00 AM IST</span>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <span>📱</span>
-              <span>Link will be sent on WhatsApp</span>
-            </div>
           </div>
 
-          {/* Italic note */}
-          <p className="font-inter italic text-sm text-[#B0AEA5] text-center mt-6">
-            ಈ webinar ನಿಮ್ಮ business ಗೆ ಹೇಗೆ help ಆಗ್ತೆ ಅಂತ ನೋಡ್ತೀರಿ. ಸಮಯಕ್ಕೆ ಬನ್ನಿ.
+          {/* Note */}
+          <p className="font-inter italic text-sm text-[#B0AEA5] text-center mt-6 font-kannada">
+            ನಿಮ್ಮ inputs ನಮಗೆ webinar plan ಮಾಡೋಕೆ ತುಂಬಾ help ಆಗ್ತೆ. ಸಮಯಕ್ಕೆ ಬನ್ನಿ!
           </p>
 
           {/* WhatsApp share button */}
@@ -57,12 +54,12 @@ export default function ThankYou() {
             Share with a friend →
           </button>
 
-          {/* Register another */}
+          {/* Submit another */}
           <Link
             href="/"
             className="inline-block text-sm text-[#B0AEA5] underline mt-4"
           >
-            ← Register another person
+            ← Submit another response
           </Link>
         </div>
       </div>

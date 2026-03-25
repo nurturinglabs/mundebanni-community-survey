@@ -89,10 +89,10 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-outfit font-semibold text-lg text-[#141413]">
-                  Register for the Webinar
+                  Tell us about your business
                 </h2>
                 <p className="font-inter text-[12px] text-[#B0AEA5]">
-                  <span className="font-kannada">ನೋಂದಾಯಿಸಿ</span> · Helps us make this session relevant for you.
+                  <span className="font-kannada">ನಿಮ್ಮ business ಬಗ್ಗೆ ಹೇಳಿ</span> · Helps us tailor the webinar for you.
                 </p>
               </div>
               <span className="lg:hidden inline-block bg-[#D97757] text-white rounded-full px-3 py-1 text-[10px] font-medium">

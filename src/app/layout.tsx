@@ -31,8 +31,8 @@ const notoSansKannada = Noto_Sans_Kannada({
 });
 
 export const metadata: Metadata = {
-  title: "SuperPower for your Business — Free Webinar",
-  description: "Register for the free Kannada webinar on using AI for your business. April 2026.",
+  title: "SuperPower for your Business — Pre-Webinar Survey",
+  description: "Tell us about your business so we can tailor the AI webinar for you. April 2026.",
 };
 
 export default function RootLayout({

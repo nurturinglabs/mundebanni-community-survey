@@ -277,12 +277,12 @@ export default function RegistrationForm() {
               Registering...
             </>
           ) : (
-            "Register Now →"
+            "Submit →"
           )}
         </button>
 
         <p className="text-[11px] text-[#B0AEA5] text-center mt-2">
-          Free event. No spam. Ever.
+          Takes 30 seconds. Helps us plan a better session for you.
         </p>
       </div>
     </form>
