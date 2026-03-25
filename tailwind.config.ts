@@ -9,8 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#FAF9F5",
+        foreground: "#141413",
+        accent: "#D97757",
+        "accent-hover": "#C26644",
+        muted: "#B0AEA5",
+        border: "#E8E6DC",
+        success: "#788C5D",
+        card: "#FFFFFF",
+        "accent-light": "#FEF3EE",
+      },
+      fontFamily: {
+        inter: ["var(--font-inter)", "sans-serif"],
+        outfit: ["var(--font-outfit)", "sans-serif"],
+        mono: ["var(--font-ibm-plex-mono)", "monospace"],
+        kannada: ["var(--font-kannada)", "sans-serif"],
+      },
+      borderRadius: {
+        card: "12px",
       },
     },
   },
