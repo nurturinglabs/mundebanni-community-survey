@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { name, whatsapp, city, business_type, team_size, biggest_pain, ai_experience, language_preference, demo_request } = body;
+    const { name, whatsapp, city, business_type, team_size, biggest_pain, ai_experience, automate_wish, language_preference, demo_request } = body;
 
     if (!name || !name.trim()) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
         team_size: team_size || null,
         biggest_pain: biggest_pain || null,
         ai_experience: ai_experience || null,
+        automate_wish: automate_wish || null,
         language_preference: language_preference || null,
         demo_request: demo_request || null,
       },
