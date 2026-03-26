@@ -3,55 +3,140 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const BUSINESS_TYPES = [
-  "",
-  "Retail Shop / Kirana Store",
-  "Restaurant / Cloud Kitchen / Tiffin",
-  "Boutique / Clothing / Fashion",
-  "Wholesale / Distribution",
-  "Pharmacy / Medical Store",
-  "Coaching / Tuition / Education",
-  "Freelancer / Consultant",
-  "Agriculture / Farming",
-  "I am thinking of starting a business",
-  "Other",
-];
+type Lang = "en" | "kn";
 
-const TEAM_SIZES = ["Just me", "2–5", "6–20", "20+"];
+const t = {
+  en: {
+    toggleLabel: "ಕನ್ನಡ",
+    toggleLabelAlt: "English",
+    name: "Your name *",
+    namePlaceholder: "Your name",
+    city: "Your city",
+    cityPlaceholder: "Bengaluru, Mysuru, Hubli...",
+    businessType: "Business type *",
+    selectDefault: "-- Select --",
+    biggestPain: "Biggest daily challenge?",
+    automate: "What do you want to automate using AI? (select all that apply)",
+    teamSize: "Team size",
+    aiExperience: "Used AI tools before?",
+    languagePref: "Preferred language",
+    demoRequest: "What demo would you like to see in the webinar?",
+    demoPlaceholder: "e.g. invoice automation, WhatsApp bot, social media posts...",
+    submit: "Submit →",
+    submitting: "Registering...",
+    footer: "Takes 30 seconds. Helps us plan a better session for you.",
+    errorName: "Please enter your name",
+    errorBusiness: "Please select your business type",
+    errorGeneric: "Something went wrong — please try again.",
+    businessTypes: [
+      "Retail Shop / Kirana Store",
+      "Restaurant / Cloud Kitchen / Tiffin",
+      "Boutique / Clothing / Fashion",
+      "Wholesale / Distribution",
+      "Pharmacy / Medical Store",
+      "Coaching / Tuition / Education",
+      "Freelancer / Consultant",
+      "Agriculture / Farming",
+      "I am thinking of starting a business",
+      "Other",
+    ],
+    painPoints: [
+      "Too many calls to handle",
+      "Chasing payments from customers",
+      "Writing content, posts, menus",
+      "Tracking bills and expenses",
+      "No time for planning or growth",
+      "Managing staff and schedules",
+      "Finding new customers",
+    ],
+    automateOptions: [
+      "Invoices & billing",
+      "Payment reminders",
+      "Social media content",
+      "Customer follow-ups",
+      "Sales reports",
+      "Staff scheduling",
+      "Menu / catalogue updates",
+      "Answering customer calls",
+      "Not sure yet",
+    ],
+    teamSizes: ["Just me", "2–5", "6–20", "20+"],
+    aiLevels: [
+      "Never heard of it",
+      "Heard but never tried",
+      "Tried once or twice",
+      "Use it sometimes",
+      "Use it regularly",
+    ],
+    languages: ["ಕನ್ನಡ ಮಾತ್ರ", "English", "Both"],
+  },
+  kn: {
+    toggleLabel: "English",
+    toggleLabelAlt: "ಕನ್ನಡ",
+    name: "ನಿಮ್ಮ ಹೆಸರು *",
+    namePlaceholder: "ನಿಮ್ಮ ಹೆಸರು",
+    city: "ನಿಮ್ಮ ಊರು",
+    cityPlaceholder: "ಬೆಂಗಳೂರು, ಮೈಸೂರು, ಹುಬ್ಬಳ್ಳಿ...",
+    businessType: "ವ್ಯಾಪಾರದ ವಿಧ *",
+    selectDefault: "-- ಆಯ್ಕೆ ಮಾಡಿ --",
+    biggestPain: "ದಿನನಿತ್ಯದ ದೊಡ್ಡ ಸಮಸ್ಯೆ?",
+    automate: "AI ಬಳಸಿ ಏನನ್ನು automate ಮಾಡಬೇಕು? (ಎಲ್ಲಾ ಆಯ್ಕೆ ಮಾಡಿ)",
+    teamSize: "ಎಷ್ಟು ಜನ ಇದ್ದಾರೆ?",
+    aiExperience: "ಮೊದಲು AI tools ಬಳಸಿದ್ದೀರಾ?",
+    languagePref: "ಆದ್ಯತೆಯ ಭಾಷೆ",
+    demoRequest: "Webinar ನಲ್ಲಿ ಯಾವ demo ನೋಡಬೇಕು ಅಂತ ಇಷ್ಟಪಡ್ತೀರಿ?",
+    demoPlaceholder: "ಉದಾ: invoice automation, WhatsApp bot, social media posts...",
+    submit: "ಸಲ್ಲಿಸಿ →",
+    submitting: "ನೋಂದಣಿ ಆಗ್ತಿದೆ...",
+    footer: "30 ಸೆಕೆಂಡ್ ಸಾಕು. ನಿಮಗಾಗಿ ಉತ್ತಮ session plan ಮಾಡಲು ಸಹಾಯ ಆಗುತ್ತೆ.",
+    errorName: "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ನಮೂದಿಸಿ",
+    errorBusiness: "ದಯವಿಟ್ಟು ವ್ಯಾಪಾರದ ವಿಧ ಆಯ್ಕೆ ಮಾಡಿ",
+    errorGeneric: "ಏನೋ ತಪ್ಪಾಯ್ತೆ — ದಯವಿಟ್ಟು ಮತ್ತೆ try ಮಾಡಿ.",
+    businessTypes: [
+      "ಕಿರಾಣಿ / ರಿಟೇಲ್ ಅಂಗಡಿ",
+      "ರೆಸ್ಟೋರೆಂಟ್ / ಕ್ಲೌಡ್ ಕಿಚನ್ / ಟಿಫಿನ್",
+      "ಬುಟೀಕ್ / ಬಟ್ಟೆ / ಫ್ಯಾಷನ್",
+      "ಹೋಲ್‌ಸೇಲ್ / ವಿತರಣೆ",
+      "ಫಾರ್ಮಸಿ / ಮೆಡಿಕಲ್ ಸ್ಟೋರ್",
+      "ಕೋಚಿಂಗ್ / ಟ್ಯೂಷನ್ / ಶಿಕ್ಷಣ",
+      "ಫ್ರೀಲಾನ್ಸರ್ / ಕನ್ಸಲ್ಟೆಂಟ್",
+      "ಕೃಷಿ / ಬೇಸಾಯ",
+      "ವ್ಯಾಪಾರ ಶುರು ಮಾಡಬೇಕು ಅಂತ ಯೋಚನೆ ಇದೆ",
+      "ಇತರೆ",
+    ],
+    painPoints: [
+      "ತುಂಬಾ calls, handle ಮಾಡೋಕೆ ಕಷ್ಟ",
+      "ಗ್ರಾಹಕರಿಂದ ಹಣ ವಸೂಲಿ ಕಷ್ಟ",
+      "Content, posts, menu ಬರೆಯೋದು",
+      "Bills ಮತ್ತು ಖರ್ಚು track ಮಾಡೋದು",
+      "Planning / growth ಗೆ ಸಮಯ ಇಲ್ಲ",
+      "Staff ಮತ್ತು schedule manage ಮಾಡೋದು",
+      "ಹೊಸ ಗ್ರಾಹಕರನ್ನ ಹುಡುಕೋದು",
+    ],
+    automateOptions: [
+      "ಇನ್‌ವಾಯ್ಸ್ & ಬಿಲ್ಲಿಂಗ್",
+      "ಪಾವತಿ ರಿಮೈಂಡರ್",
+      "ಸೋಶಿಯಲ್ ಮೀಡಿಯಾ ಕಂಟೆಂಟ್",
+      "ಗ್ರಾಹಕರ ಫಾಲೋ-ಅಪ್",
+      "ಮಾರಾಟ ವರದಿಗಳು",
+      "Staff scheduling",
+      "ಮೆನು / ಕ್ಯಾಟಲಾಗ್ ಅಪ್‌ಡೇಟ್",
+      "ಗ್ರಾಹಕರ calls ಗೆ ಉತ್ತರ",
+      "ಇನ್ನೂ ಗೊತ್ತಿಲ್ಲ",
+    ],
+    teamSizes: ["ನಾನೊಬ್ಬನೇ", "2–5", "6–20", "20+"],
+    aiLevels: [
+      "ಕೇಳಿಲ್ಲ",
+      "ಕೇಳಿದ್ದೇನೆ, ಬಳಸಿಲ್ಲ",
+      "ಒಂದೆರಡು ಸಲ try ಮಾಡಿದ್ದೇನೆ",
+      "ಆಗಾಗ ಬಳಸ್ತೇನೆ",
+      "ನಿಯಮಿತವಾಗಿ ಬಳಸ್ತೇನೆ",
+    ],
+    languages: ["ಕನ್ನಡ ಮಾತ್ರ", "English", "ಎರಡೂ"],
+  },
+};
 
-const PAIN_POINTS = [
-  "",
-  "Too many calls to handle",
-  "Chasing payments from customers",
-  "Writing content, posts, menus",
-  "Tracking bills and expenses",
-  "No time for planning or growth",
-  "Managing staff and schedules",
-  "Finding new customers",
-];
-
-const AI_EXPERIENCE = [
-  "Never heard of it",
-  "Heard but never tried",
-  "Tried once or twice",
-  "Use it sometimes",
-  "Use it regularly",
-];
-
-const AUTOMATE_OPTIONS = [
-  "Invoices & billing",
-  "Payment reminders",
-  "Social media content",
-  "Customer follow-ups",
-  "Sales reports",
-  "Staff scheduling",
-  "Menu / catalogue updates",
-  "Answering customer calls",
-];
-
-const LANGUAGES = ["ಕನ್ನಡ ಮಾತ್ರ", "English", "Both"];
-
-export default function RegistrationForm() {
+export default function RegistrationForm({ lang }: { lang: Lang }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -64,13 +149,14 @@ export default function RegistrationForm() {
   const [aiExperience, setAiExperience] = useState("");
   const [automateWish, setAutomateWish] = useState<string[]>([]);
   const [languagePreference, setLanguagePreference] = useState("");
+  const [demoRequest, setDemoRequest] = useState("");
+
+  const l = t[lang];
 
   const toggleAutomate = (option: string) => {
-    setAutomateWish((prev) => {
-      if (prev.includes(option)) return prev.filter((o) => o !== option);
-      if (prev.length >= 2) return [prev[1], option];
-      return [...prev, option];
-    });
+    setAutomateWish((prev) =>
+      prev.includes(option) ? prev.filter((o) => o !== option) : [...prev, option]
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -78,11 +164,11 @@ export default function RegistrationForm() {
     setError("");
 
     if (!name.trim()) {
-      setError("Please enter your name");
+      setError(l.errorName);
       return;
     }
     if (!businessType) {
-      setError("Please select your business type");
+      setError(l.errorBusiness);
       return;
     }
 
@@ -101,6 +187,7 @@ export default function RegistrationForm() {
           ai_experience: aiExperience,
           automate_wish: automateWish.join(", "),
           language_preference: languagePreference,
+          demo_request: demoRequest,
         }),
       });
 
@@ -109,10 +196,10 @@ export default function RegistrationForm() {
       if (data.success) {
         router.push("/thank-you");
       } else {
-        setError("ಏನೋ ತಪ್ಪಾಯ್ತೆ — ದಯವಿಟ್ಟು ಮತ್ತೆ try ಮಾಡಿ.");
+        setError(l.errorGeneric);
       }
     } catch {
-      setError("ಏನೋ ತಪ್ಪಾಯ್ತೆ — ದಯವಿಟ್ಟು ಮತ್ತೆ try ಮಾಡಿ.");
+      setError(l.errorGeneric);
     } finally {
       setLoading(false);
     }
@@ -134,21 +221,21 @@ export default function RegistrationForm() {
       <div className="flex-1 grid grid-cols-2 gap-x-5 gap-y-3 content-start">
         {/* Row 1: Name + City */}
         <div>
-          <label className={labelClass}>Your name *</label>
+          <label className={labelClass}>{l.name}</label>
           <input
             type="text"
             required
-            placeholder="ನಿಮ್ಮ ಹೆಸರು"
+            placeholder={l.namePlaceholder}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={inputClass}
           />
         </div>
         <div>
-          <label className={labelClass}>Your city</label>
+          <label className={labelClass}>{l.city}</label>
           <input
             type="text"
-            placeholder="Bengaluru, Mysuru, Hubli..."
+            placeholder={l.cityPlaceholder}
             value={city}
             onChange={(e) => setCity(e.target.value)}
             className={inputClass}
@@ -157,15 +244,15 @@ export default function RegistrationForm() {
 
         {/* Row 2: Business Type + Biggest Pain */}
         <div>
-          <label className={labelClass}>Business type *</label>
+          <label className={labelClass}>{l.businessType}</label>
           <select
             required
             value={businessType}
             onChange={(e) => setBusinessType(e.target.value)}
             className={`${inputClass} appearance-none`}
           >
-            <option value="">-- Select --</option>
-            {BUSINESS_TYPES.filter(Boolean).map((type) => (
+            <option value="">{l.selectDefault}</option>
+            {l.businessTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
               </option>
@@ -173,14 +260,14 @@ export default function RegistrationForm() {
           </select>
         </div>
         <div>
-          <label className={labelClass}>Biggest daily challenge?</label>
+          <label className={labelClass}>{l.biggestPain}</label>
           <select
             value={biggestPain}
             onChange={(e) => setBiggestPain(e.target.value)}
             className={`${inputClass} appearance-none`}
           >
-            <option value="">-- Select --</option>
-            {PAIN_POINTS.filter(Boolean).map((pain) => (
+            <option value="">{l.selectDefault}</option>
+            {l.painPoints.map((pain) => (
               <option key={pain} value={pain}>
                 {pain}
               </option>
@@ -190,9 +277,9 @@ export default function RegistrationForm() {
 
         {/* Row 3: Automate with AI (pick 2, 4 cols) */}
         <div className="col-span-2">
-          <label className={labelClass}>Pick two things you want to automate using AI</label>
+          <label className={labelClass}>{l.automate}</label>
           <div className="grid grid-cols-4 gap-2">
-            {AUTOMATE_OPTIONS.map((option) => (
+            {l.automateOptions.map((option) => (
               <button
                 key={option}
                 type="button"
@@ -207,9 +294,9 @@ export default function RegistrationForm() {
 
         {/* Row 4: Team Size (4 across) */}
         <div className="col-span-2">
-          <label className={labelClass}>Team size</label>
+          <label className={labelClass}>{l.teamSize}</label>
           <div className="grid grid-cols-4 gap-2">
-            {TEAM_SIZES.map((size) => (
+            {l.teamSizes.map((size) => (
               <button
                 key={size}
                 type="button"
@@ -222,11 +309,11 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        {/* Row 4: AI Experience */}
+        {/* Row 5: AI Experience */}
         <div className="col-span-2">
-          <label className={labelClass}>Used AI tools before?</label>
+          <label className={labelClass}>{l.aiExperience}</label>
           <div className="grid grid-cols-5 gap-2">
-            {AI_EXPERIENCE.map((level) => (
+            {l.aiLevels.map((level) => (
               <button
                 key={level}
                 type="button"
@@ -239,21 +326,33 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        {/* Row 5: Language Preference (3 across) */}
+        {/* Row 6: Language Preference (3 across) */}
         <div className="col-span-2">
-          <label className={labelClass}>Preferred language</label>
+          <label className={labelClass}>{l.languagePref}</label>
           <div className="grid grid-cols-3 gap-2">
-            {LANGUAGES.map((lang) => (
+            {l.languages.map((langOption) => (
               <button
-                key={lang}
+                key={langOption}
                 type="button"
-                onClick={() => setLanguagePreference(lang)}
-                className={radioClass(languagePreference === lang)}
+                onClick={() => setLanguagePreference(langOption)}
+                className={radioClass(languagePreference === langOption)}
               >
-                {lang}
+                {langOption}
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Row 7: Demo Request (new question) */}
+        <div className="col-span-2">
+          <label className={labelClass}>{l.demoRequest}</label>
+          <input
+            type="text"
+            placeholder={l.demoPlaceholder}
+            value={demoRequest}
+            onChange={(e) => setDemoRequest(e.target.value)}
+            className={inputClass}
+          />
         </div>
       </div>
 
@@ -274,15 +373,15 @@ export default function RegistrationForm() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
               </svg>
-              Registering...
+              {l.submitting}
             </>
           ) : (
-            "Submit →"
+            l.submit
           )}
         </button>
 
         <p className="text-[11px] text-[#B0AEA5] text-center mt-2">
-          Takes 30 seconds. Helps us plan a better session for you.
+          {l.footer}
         </p>
       </div>
     </form>

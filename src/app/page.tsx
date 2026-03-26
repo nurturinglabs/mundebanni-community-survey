@@ -1,8 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import RegistrationForm from "@/components/RegistrationForm";
 
+type Lang = "en" | "kn";
+
 export default function Home() {
+  const [lang, setLang] = useState<Lang>("en");
+
   return (
     <main className="h-screen w-screen dot-grid flex overflow-hidden">
       {/* Left panel — branding */}
@@ -89,21 +94,33 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-outfit font-semibold text-lg text-[#141413]">
-                  Tell us about your business
+                  {lang === "en" ? "Tell us about your business" : "ನಿಮ್ಮ business ಬಗ್ಗೆ ಹೇಳಿ"}
                 </h2>
                 <p className="font-inter text-[12px] text-[#B0AEA5]">
-                  <span className="font-kannada">ನಿಮ್ಮ business ಬಗ್ಗೆ ಹೇಳಿ</span> · Helps us tailor the webinar for you.
+                  {lang === "en"
+                    ? <><span className="font-kannada">ನಿಮ್ಮ business ಬಗ್ಗೆ ಹೇಳಿ</span> · Helps us tailor the webinar for you.</>
+                    : "ನಿಮಗಾಗಿ webinar plan ಮಾಡಲು ಸಹಾಯ ಆಗುತ್ತೆ."}
                 </p>
               </div>
-              <span className="lg:hidden inline-block bg-[#D97757] text-white rounded-full px-3 py-1 text-[10px] font-medium">
-                Free · April 2026
-              </span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setLang(lang === "en" ? "kn" : "en")}
+                  className="flex items-center gap-1.5 border border-[#E8E6DC] rounded-full px-3 py-1 text-xs font-medium text-[#141413] hover:border-[#D97757] transition-colors"
+                >
+                  <span className="text-sm">🌐</span>
+                  {lang === "en" ? "ಕನ್ನಡ" : "English"}
+                </button>
+                <span className="lg:hidden inline-block bg-[#D97757] text-white rounded-full px-3 py-1 text-[10px] font-medium">
+                  Free · April 2026
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Form takes remaining space */}
           <div className="flex-1">
-            <RegistrationForm />
+            <RegistrationForm lang={lang} />
           </div>
         </div>
       </div>
