@@ -9,7 +9,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
 
   return (
-    <main className="h-screen w-screen dot-grid flex overflow-hidden">
+    <main className="min-h-screen w-screen dot-grid flex lg:h-screen lg:overflow-hidden">
       {/* Left panel — branding */}
       <div className="relative z-10 hidden lg:flex flex-col justify-between w-[360px] shrink-0 bg-[#141413] text-white p-8">
         <div>
@@ -87,8 +87,8 @@ export default function Home() {
       </div>
 
       {/* Right panel — form fills entire remaining space */}
-      <div className="relative z-10 flex-1 flex items-center justify-center p-4 lg:p-6">
-        <div className="w-full h-full max-w-[860px] bg-white border border-[#E8E6DC] rounded-xl p-5 lg:p-8 flex flex-col">
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4 lg:p-6 overflow-y-auto">
+        <div className="w-full max-w-[860px] bg-white border border-[#E8E6DC] rounded-xl p-5 lg:p-8 flex flex-col lg:h-full">
           {/* Header */}
           <div className="mb-4 shrink-0">
             <div className="flex items-center justify-between">

@@ -218,7 +218,7 @@ export default function RegistrationForm({ lang }: { lang: Lang }) {
   return (
     <form onSubmit={handleSubmit} className="h-full flex flex-col">
       {/* All fields in a grid */}
-      <div className="flex-1 grid grid-cols-2 gap-x-5 gap-y-3 content-start">
+      <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3 content-start">
         {/* Row 1: Name + City */}
         <div>
           <label className={labelClass}>{l.name}</label>
@@ -276,9 +276,9 @@ export default function RegistrationForm({ lang }: { lang: Lang }) {
         </div>
 
         {/* Row 3: Automate with AI (pick 2, 4 cols) */}
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <label className={labelClass}>{l.automate}</label>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {l.automateOptions.map((option) => (
               <button
                 key={option}
@@ -293,9 +293,9 @@ export default function RegistrationForm({ lang }: { lang: Lang }) {
         </div>
 
         {/* Row 4: Team Size (4 across) */}
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <label className={labelClass}>{l.teamSize}</label>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {l.teamSizes.map((size) => (
               <button
                 key={size}
@@ -310,9 +310,9 @@ export default function RegistrationForm({ lang }: { lang: Lang }) {
         </div>
 
         {/* Row 5: AI Experience */}
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <label className={labelClass}>{l.aiExperience}</label>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {l.aiLevels.map((level) => (
               <button
                 key={level}
@@ -327,7 +327,7 @@ export default function RegistrationForm({ lang }: { lang: Lang }) {
         </div>
 
         {/* Row 6: Language Preference (3 across) */}
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <label className={labelClass}>{l.languagePref}</label>
           <div className="grid grid-cols-3 gap-2">
             {l.languages.map((langOption) => (
@@ -344,7 +344,7 @@ export default function RegistrationForm({ lang }: { lang: Lang }) {
         </div>
 
         {/* Row 7: Demo Request (new question) */}
-        <div className="col-span-2">
+        <div className="sm:col-span-2">
           <label className={labelClass}>{l.demoRequest}</label>
           <input
             type="text"
