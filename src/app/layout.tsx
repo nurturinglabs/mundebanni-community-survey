@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Outfit, IBM_Plex_Mono, Noto_Sans_Kannada } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,6 +47,7 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} ${ibmPlexMono.variable} ${notoSansKannada.variable} antialiased bg-background text-foreground font-inter`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
