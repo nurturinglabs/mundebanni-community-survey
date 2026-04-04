@@ -56,7 +56,7 @@ export default function ThankYou() {
 
           {/* Submit another */}
           <Link
-            href="/"
+            href="/pre"
             className="inline-block text-sm text-[#B0AEA5] underline mt-4"
           >
             ← Submit another response

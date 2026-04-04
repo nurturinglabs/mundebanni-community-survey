@@ -24,6 +24,8 @@ const config: Config = {
         outfit: ["var(--font-outfit)", "sans-serif"],
         mono: ["var(--font-ibm-plex-mono)", "monospace"],
         kannada: ["var(--font-kannada)", "sans-serif"],
+        jetbrains: ["var(--font-jetbrains)", "monospace"],
+        playfair: ["var(--font-playfair)", "serif"],
       },
       borderRadius: {
         card: "12px",
